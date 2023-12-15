@@ -1,0 +1,111 @@
+
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Generative AI API with User Input</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    input[type="button"] {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+  </script>
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    // Access your API key (see "Set up your API key" above)
+    const genAI = new GoogleGenerativeAI("AIzaSyCYHdBb42vFVSI8awJMTA4N3pqMLj0_vyE");
+
+    // Define run function in the global scope
+    window.run = async function () {
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+      // Get user input from a text field
+      const prompt = document.getElementById("prompt").value;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+
+      // Display the generated text in a result div
+      document.getElementById("result").innerHTML = text;
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Generative AI API with User Input</h1>
+  <p>
+    Enter a prompt below and I will generate a response using the
+    Generative AI API.
+  </p>
+  <form>
+    <label for="prompt">Prompt:</label>
+    <input type="text" id="prompt" />
+    <input type="button" value="Generate" onclick="run()" />
+  </form>
+
+  <div id="result"></div>
+</body>
+
+</html>
