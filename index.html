@@ -1,111 +1,173 @@
-
-</html>
 <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8" />
-  <title>Generative AI API with User Input</title>
-  <script type="importmap">
-    {
-      "imports": {
-        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let's Chat: AI-Powered Conversations</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
       }
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    p {
-      color: #666;
-    }
-
-    form {
-      margin-top: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    input[type="text"] {
-      width: 300px;
-      padding: 8px;
-      font-size: 16px;
-    }
-
-    input[type="button"] {
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
-    }
-
-    #result {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-  <script type="importmap">
-    {
-      "imports": {
-        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+    </script>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        text-align: center;
       }
-    }
-  </script>
-  <script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    // Access your API key (see "Set up your API key" above)
-    const genAI = new GoogleGenerativeAI("AIzaSyCYHdBb42vFVSI8awJMTA4N3pqMLj0_vyE");
+      h1 {
+        color: #333;
+      }
 
-    // Define run function in the global scope
-    window.run = async function () {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      p {
+        color: #666;
+      }
 
-      // Get user input from a text field
-      const prompt = document.getElementById("prompt").value;
+      .container {
+        width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+      #input-container {
+        margin-top: 20px;
+      }
 
-      // Display the generated text in a result div
-      document.getElementById("result").innerHTML = text;
-    }
-  </script>
-</head>
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+      }
 
-<body>
-  <h1>Generative AI API with User Input</h1>
-  <p>
-    Enter a prompt below and I will generate a response using the
-    Generative AI API.
-  </p>
-  <form>
-    <label for="prompt">Prompt:</label>
-    <input type="text" id="prompt" />
-    <input type="button" value="Generate" onclick="run()" />
-  </form>
+      input[type="text"] {
+        width: calc(100% - 18px);
+        padding: 8px;
+        font-size: 16px;
+      }
 
-  <div id="result"></div>
-</body>
+      input[type="button"],
+      button {
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        border-radius: 4px;
+      }
 
+      input[type="button"] {
+        background-color: #4caf50;
+      }
+
+      button {
+        background-color: #007bff;
+      }
+
+      #results {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        white-space: pre-line;
+        text-align: left;
+      }
+      .message-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .user-message {
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .ai-message {
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .timestamp {
+        color: #888;
+        font-size: 12px;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      const genAI = new GoogleGenerativeAI(
+        "AIzaSyCYHdBb42vFVSI8awJMTA4N3pqMLj0_vyE"
+      );
+
+      window.run = async function () {
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        const prompt = document.getElementById("prompt").value;
+
+        if (!prompt) {
+          alert("Please enter a prompt.");
+          return;
+        }
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        document.getElementById("results").innerHTML = text;
+      };
+
+      function checkEnter(event) {
+        if (event.key === "Enter") {
+          run();
+        }
+      }
+
+      function copyToClipboard() {
+        const resultText = document.getElementById("results").innerText;
+        const textarea = document.createElement("textarea");
+        textarea.value = resultText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Output copied to clipboard!");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Let's Chat: AI-Powered Conversations</h1>
+    <p>
+      Have a question or need some advice? Ask me anything, and I'll do my best
+      to help. Just type in your prompt below, and I'll generate a response.
+    </p>
+    <div class="container">
+      <div id="input-container">
+        <label for="prompt">Your Prompt:</label>
+        <input type="text" id="prompt" onkeydown="checkEnter(event)" />
+        <input type="button" value="Ask" onclick="run()" />
+        <button onclick="copyToClipboard()">Copy</button>
+      </div>
+      <div id="results"></div>
+    </div>
+  </body>
 </html>
