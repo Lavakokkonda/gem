@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let's Chat: AI-Powered Conversations</title>
-  <style>
-    /* Your existing styles remain unchanged */
-    body {
-        font-family: "Arial", sans-serif;
-        background-color: #f5f5f5;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let's Chat: AI-Powered Conversations</title>
+    <style>
+      /* Your existing styles remain unchanged */
+      body {
+        background-color: #1F1F1D;
         margin: 0;
         padding: 0;
         text-align: center;
+        font-family: __fkGroteskNeue_532e43, __fkGroteskNeue_Fallback_532e43,
+        ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: normal;
+        word-spacing: 0px;
+        text-indent: 0px;
+        font-weight: 500;
+        font-style: normal;
+        font-variant: normal;
+        text-transform: none;
+        text-decoration: none solid rgb(143, 143, 143);
+        /* color: #8f8f8F; */
       }
 
       h1 {
-        color: #333;
+        color: #fff;
       }
 
       p {
@@ -23,9 +38,11 @@
       }
 
       .container {
-        width: 500px;
+        width: 700px;
         margin: 0 auto;
         padding: 20px;
+        background-color: #292927;
+        border-radius: 30px;
       }
 
       #input-container {
@@ -35,13 +52,17 @@
       label {
         display: block;
         margin-bottom: 10px;
-        color: #333;
+        color: #fff;
       }
 
       input[type="text"] {
-        width: calc(100% - 18px);
-        padding: 8px;
+        width: calc(50% - 18px);
+        padding: 10px;
         font-size: 16px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        padding-left: 20px;
       }
 
       input[type="button"],
@@ -52,15 +73,15 @@
         cursor: pointer;
         border: none;
         color: #fff;
-        border-radius: 4px;
+        border-radius: 20px;
       }
 
       input[type="button"] {
-        background-color: #4caf50;
+        background-color: #87a9ff;
       }
 
       button {
-        background-color: #007bff;
+        background-color: #4caf50;
       }
 
       #results {
@@ -98,246 +119,242 @@
         color: #888;
         font-size: 12px;
       }
-    .loader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      --color: hsl(0, 0%, 87%);
-      --animation: 2s ease-in-out infinite;
-    }
-
-    .loader .circle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      width: 20px;
-      height: 20px;
-      border: solid 2px var(--color);
-      border-radius: 50%;
-      margin: 0 10px;
-      background-color: transparent;
-      animation: circle-keys var(--animation);
-    }
-
-    .loader .circle .dot {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: var(--color);
-      animation: dot-keys var(--animation);
-    }
-
-    .loader .circle .outline {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      animation: outline-keys var(--animation);
-    }
-
-    .circle:nth-child(2) {
-      animation-delay: 0.3s;
-    }
-
-    .circle:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    .circle:nth-child(4) {
-      animation-delay: 0.9s;
-    }
-
-    .circle:nth-child(5) {
-      animation-delay: 1.2s;
-    }
-
-    .circle:nth-child(2) .dot {
-      animation-delay: 0.3s;
-    }
-
-    .circle:nth-child(3) .dot {
-      animation-delay: 0.6s;
-    }
-
-    .circle:nth-child(4) .dot {
-      animation-delay: 0.9s;
-    }
-
-    .circle:nth-child(5) .dot {
-      animation-delay: 1.2s;
-    }
-
-    .circle:nth-child(1) .outline {
-      animation-delay: 0.9s;
-    }
-
-    .circle:nth-child(2) .outline {
-      animation-delay: 1.2s;
-    }
-
-    .circle:nth-child(3) .outline {
-      animation-delay: 1.5s;
-    }
-
-    .circle:nth-child(4) .outline {
-      animation-delay: 1.8s;
-    }
-
-    .circle:nth-child(5) .outline {
-      animation-delay: 2.1s;
-    }
-
-    @keyframes circle-keys {
-      0% {
-        transform: scale(1);
-        opacity: 1;
+      .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        --color: hsl(0, 0%, 87%);
+        --animation: 2s ease-in-out infinite;
       }
 
-      50% {
-        transform: scale(1.5);
-        opacity: 0.5;
+      .loader .circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border: solid 2px var(--color);
+        border-radius: 50%;
+        margin: 0 10px;
+        background-color: transparent;
+        animation: circle-keys var(--animation);
       }
 
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes dot-keys {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(0);
+      .loader .circle .dot {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: var(--color);
+        animation: dot-keys var(--animation);
       }
 
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes outline-keys {
-      0% {
-        transform: scale(0);
-        outline: solid 20px var(--color);
-        outline-offset: 0;
-        opacity: 1;
+      .loader .circle .outline {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        animation: outline-keys var(--animation);
       }
 
-      100% {
-        transform: scale(1);
-        outline: solid 0 transparent;
-        outline-offset: 20px;
-        opacity: 0;
+      .circle:nth-child(2) {
+        animation-delay: 0.3s;
       }
-    }
-  </style>
-  <!-- Your existing scripts remain unchanged -->
-  <script type="importmap">
-    {
-      "imports": {
-        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+
+      .circle:nth-child(3) {
+        animation-delay: 0.6s;
       }
-    }
-  </script>
-  <script type="module">
-    import { GoogleGenerativeAI } from "@google/generative-ai";
 
-    const genAI = new GoogleGenerativeAI(
-      "AIzaSyCYHdBb42vFVSI8awJMTA4N3pqMLj0_vyE"
-    );
+      .circle:nth-child(4) {
+        animation-delay: 0.9s;
+      }
 
-    window.run = async function () {
-      const loading = document.getElementById("loading");
-      loading.style.display = "flex"; // Show loading animation
+      .circle:nth-child(5) {
+        animation-delay: 1.2s;
+      }
 
-      try {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      .circle:nth-child(2) .dot {
+        animation-delay: 0.3s;
+      }
 
-        const prompt = document.getElementById("prompt").value;
+      .circle:nth-child(3) .dot {
+        animation-delay: 0.6s;
+      }
 
-        if (!prompt) {
-          alert("Please enter a prompt.");
-          return;
+      .circle:nth-child(4) .dot {
+        animation-delay: 0.9s;
+      }
+
+      .circle:nth-child(5) .dot {
+        animation-delay: 1.2s;
+      }
+
+      .circle:nth-child(1) .outline {
+        animation-delay: 0.9s;
+      }
+
+      .circle:nth-child(2) .outline {
+        animation-delay: 1.2s;
+      }
+
+      .circle:nth-child(3) .outline {
+        animation-delay: 1.5s;
+      }
+
+      .circle:nth-child(4) .outline {
+        animation-delay: 1.8s;
+      }
+
+      .circle:nth-child(5) .outline {
+        animation-delay: 2.1s;
+      }
+
+      @keyframes circle-keys {
+        0% {
+          transform: scale(1);
+          opacity: 1;
         }
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        50% {
+          transform: scale(1.5);
+          opacity: 0.5;
+        }
 
-        document.getElementById("results").innerHTML = text;
-      } finally {
-        loading.style.display = "none"; // Hide loading animation when done
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
-    };
-  </script>
-  <script>
-    function checkEnter(event) {
-      if (event.key === "Enter") {
-        run();
+
+      @keyframes dot-keys {
+        0% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(0);
+        }
+
+        100% {
+          transform: scale(1);
+        }
       }
-    }
 
-    function copyToClipboard() {
-      const resultText = document.getElementById("results").innerText;
-      const textarea = document.createElement("textarea");
-      textarea.value = resultText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
+      @keyframes outline-keys {
+        0% {
+          transform: scale(0);
+          outline: solid 20px var(--color);
+          outline-offset: 0;
+          opacity: 1;
+        }
 
-      const copyButton = document.getElementById("copyButton");
-      copyButton.style.backgroundColor = "#28a745"; // Change to desired color
-      copyButton.innerText = "Copied";
+        100% {
+          transform: scale(1);
+          outline: solid 0 transparent;
+          outline-offset: 20px;
+          opacity: 0;
+        }
+      }
+    </style>
+    <!-- Your existing scripts remain unchanged -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
 
-      // Reset button color and text after a delay (e.g., 2 seconds)
-      setTimeout(() => {
-        copyButton.style.backgroundColor = "#007bff"; // Original button color
-        copyButton.innerText = "Copy";
-      }, 2000);
-    }
-  </script>
-</head>
-<body>
-  <h1>Let's Chat: AI-Powered Conversations</h1>
-  <p>
-    Have a question or need some advice? Ask me anything, and I'll do my best
-    to help. Just type in your prompt below, and I'll generate a response.
-  </p>
-  <div class="container">
-    <div id="input-container">
-      <label for="prompt">Your Prompt:</label>
-      <input type="text" id="prompt" onkeydown="checkEnter(event)" />
-      <input type="button" value="Ask" onclick="run()" />
-      <button id="copyButton" onclick="copyToClipboard()">Copy</button>
-    </div>
-    <div id="results">
-      <div id="loading" class="loader">
-        <div class="circle">
-          <div class="dot"></div>
-          <div class="outline"></div>
-        </div>
-        <div class="circle">
-          <div class="dot"></div>
-          <div class="outline"></div>
-        </div>
-        <div class="circle">
-          <div class="dot"></div>
-          <div class="outline"></div>
-        </div>
-        <div class="circle">
-          <div class="dot"></div>
-          <div class="outline"></div>
+      const genAI = new GoogleGenerativeAI(
+        "AIzaSyCYHdBb42vFVSI8awJMTA4N3pqMLj0_vyE"
+      );
+
+      window.run = async function () {
+        const loading = document.getElementById("loading");
+        loading.style.display = "flex"; // Show loading animation
+
+        try {
+          const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+          const prompt = document.getElementById("prompt").value;
+
+          if (!prompt) {
+            alert("Please enter a prompt.");
+            return;
+          }
+
+          const result = await model.generateContent(prompt);
+          const response = await result.response;
+          const text = response.text();
+
+          document.getElementById("results").innerHTML = text;
+        } finally {
+          loading.style.display = "none"; // Hide loading animation when done
+        }
+      };
+    </script>
+    <script>
+      function checkEnter(event) {
+        if (event.key === "Enter") {
+          run();
+        }
+      }
+
+      function copyToClipboard() {
+        const resultText = document.getElementById("results").innerText;
+        const textarea = document.createElement("textarea");
+        textarea.value = resultText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        const copyButton = document.getElementById("copyButton");
+        copyButton.style.backgroundColor = "#28a745"; // Change to desired color
+        copyButton.innerText = "Copied";
+
+        // Reset button color and text after a delay (e.g., 2 seconds)
+        setTimeout(() => {
+          copyButton.style.backgroundColor = "#007bff"; // Original button color
+          copyButton.innerText = "Copy";
+        }, 2000);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Lava Assistant</h1>
+    <div class="container">
+      <div id="input-container">
+        <label for="prompt">Your Prompt:</label>
+        <input type="text" id="prompt" onkeydown="checkEnter(event)" />
+        <input type="button" value="Ask" onclick="run()" />
+        <button id="copyButton" onclick="copyToClipboard()">Copy</button>
+      </div>
+      <div id="results">
+        <div id="loading" class="loader">
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
